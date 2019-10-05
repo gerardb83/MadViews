@@ -9,10 +9,7 @@
 package com.grandcircus.madviews.details;
 
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class DetailResult implements Serializable {
 
