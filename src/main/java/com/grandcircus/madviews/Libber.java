@@ -2,9 +2,12 @@ package com.grandcircus.madviews;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Libber {
+	
+	private Random random = new Random();
 
 	public String makeLib(String review, List<String> nouns, String[] userNouns) {
 		List<String> reviewWords = new ArrayList<>();
@@ -37,13 +40,15 @@ public class Libber {
 		for (String word : reviewWords) {
 			for (String noun : nouns ) {
 				if(word.equalsIgnoreCase(noun)) {
-					int randomNum = ThreadLocalRandom.current().nextInt(0, nouns.size());
-					newReview = newReview.replaceFirst(word, nouns.get(randomNum));
+					newReview = newReview.replaceFirst(word, nouns.get(getRandom(userNouns)));
 				}
 				
 			}
 		}
 		return newReview;
-		
+	}
+	
+	public Integer getRandom(String[] userNouns) {
+		return random.nextInt(userNouns.length);
 	}
 }

@@ -20,12 +20,13 @@ public class MadviewsApplicationTests {
 
 	@Autowired
 	private ApiService api;
+	private Libber lib;
 
 	
 	
 	@Before
 	public void setup() {
-	
+	lib = new Libber();
 	}
 	
 	@Test
@@ -56,11 +57,10 @@ public class MadviewsApplicationTests {
 	
 	@Test
 	public void whenRandomNumberIsPassedAThreeWordListItReturnsANumberFrom0To2() {
-		Random random = new Random();
 		String[] userNouns = {"butt", "president", "pork"};
 		List<Integer> randoms = new ArrayList<>();
 		for (int i = 0; i < 100; i++) {
-			int randomInteger = random.nextInt(3);
+			int randomInteger = lib.getRandom(userNouns);
 			randoms.add(randomInteger);
 		}
 		Collections.sort(randoms);
