@@ -23,17 +23,14 @@ public class MadViewsController {
 	public ModelAndView index() {
 		List<String> userNouns = new ArrayList<>(
 				Arrays.asList("yin", "president", "pork"));
-		Venue venue = new Venue();
-		venue.setCity("Chicago");
-		venue.setName("pizza");
-		venue.setUserNouns(userNouns);
+		
 		List<Review> reviews = api.getReviews();
 		Reader reader = new Reader("nouns.txt");
 		List<String> nouns = reader.readWords();	
 		String newReview = lib.makeLib(reviews.get(0).getText(), nouns, userNouns);
 		System.out.println(newReview);
 		ModelAndView mv = new  ModelAndView("index");
-		mv.addObject("venue", venue);
+//		mv.addObject("venue", venue);
 		mv.addObject("oldReview", reviews.get(0).getText());
 		mv.addObject("newReview", newReview);
 		return mv;

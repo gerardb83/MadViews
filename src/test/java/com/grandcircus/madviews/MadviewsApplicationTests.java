@@ -24,19 +24,19 @@ public class MadviewsApplicationTests {
 	private ApiService api;
 	private Libber lib;
 	private MadViewsController controller;
+	private List<String> userNouns;
 
-	
-	
 	@Before
 	public void setup() {
-	lib = new Libber();
-	controller = new MadViewsController();
+		userNouns = new ArrayList<>(Arrays.asList("yin", "president", "pork"));
+		lib = new Libber();
+		controller = new MadViewsController();
 	}
-	
+
 	@Test
 	public void contextLoads() {
 	}
-	
+
 	@Test
 	public void whenGetReviewsIsPassedItReturnsAListOfReviews() {
 		String actual = api.getReviews().get(0).getText();
@@ -51,18 +51,17 @@ public class MadviewsApplicationTests {
 		Double expected = 42.331427;
 		assertEquals(expected, actual);
 	}
-	
+
 	@Test
 	public void whenGetLatIsIsPassedItReturnsALatitude() {
 		Double actual = api.getLat();
 		Double expected = 42.331427;
 		assertEquals(expected, actual);
 	}
-	
+
 	@Test
 	public void whenRandomNumberIsPassedAThreeWordListItReturnsANumberFrom0To2() {
-		List<String> userNouns = new ArrayList<>(
-				Arrays.asList("yin", "president", "pork"));
+
 		List<Integer> randoms = new ArrayList<>();
 		for (int i = 0; i < 100; i++) {
 			int randomInteger = lib.getRandom(userNouns);
@@ -76,11 +75,20 @@ public class MadviewsApplicationTests {
 		assertEquals(expected, actual);
 		assertEquals(expected2, actual2);
 	}
-	
-//	@Test
-//	public void whenIndexIsPassedItCreatesAVenueObject() {
-//		controller.index();
-//		String city = 
-//	}
+
+	@Test
+	public void whenIndexIsPassedItCreatesAVenueObject() {
+		Venue venue = lib.getVenue(userNouns);
+		String actual = venue.getCity();
+		String actual2 = venue.getName();
+		String actual3 = venue.getUserNouns().toString();
+		String expected = "Chicago";
+		String expected2 = "pizza";
+		String expected3 = "[yin, president, pork]";
+		assertEquals(expected, actual);
+		assertEquals(expected2, actual2);
+		assertEquals(expected3, actual3);
+		
+	}
 
 }

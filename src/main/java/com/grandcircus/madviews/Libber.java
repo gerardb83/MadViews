@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
+import com.grandcirucs.madviews.model.Venue;
+
 public class Libber {
 	
 	private Random random = new Random();
@@ -50,5 +52,13 @@ public class Libber {
 	
 	public Integer getRandom(List<String> userNouns) {
 		return random.nextInt(userNouns.size());
+	}
+	
+	public Venue getVenue(List<String> userNouns) {
+		Venue venue = new Venue();
+		venue.setCity("Chicago");
+		venue.setName("pizza");
+		venue.setUserNouns(userNouns);
+		return venue;
 	}
 }
