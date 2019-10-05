@@ -3,9 +3,9 @@ package com.grandcircus.madviews;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -14,19 +14,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.grandcirucs.madviews.model.Venue;
+
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = MadlibGoogleApplication.class)
+@SpringBootTest
 public class MadviewsApplicationTests {
 
 	@Autowired
 	private ApiService api;
 	private Libber lib;
+	private MadViewsController controller;
 
 	
 	
 	@Before
 	public void setup() {
 	lib = new Libber();
+	controller = new MadViewsController();
 	}
 	
 	@Test
@@ -57,7 +61,8 @@ public class MadviewsApplicationTests {
 	
 	@Test
 	public void whenRandomNumberIsPassedAThreeWordListItReturnsANumberFrom0To2() {
-		String[] userNouns = {"butt", "president", "pork"};
+		List<String> userNouns = new ArrayList<>(
+				Arrays.asList("yin", "president", "pork"));
 		List<Integer> randoms = new ArrayList<>();
 		for (int i = 0; i < 100; i++) {
 			int randomInteger = lib.getRandom(userNouns);
@@ -71,5 +76,11 @@ public class MadviewsApplicationTests {
 		assertEquals(expected, actual);
 		assertEquals(expected2, actual2);
 	}
+	
+//	@Test
+//	public void whenIndexIsPassedItCreatesAVenueObject() {
+//		controller.index();
+//		String city = 
+//	}
 
 }

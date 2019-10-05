@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MadviewsApplication {
+public class MadViewsApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MadviewsApplication.class, args);
+		SpringApplication.run(MadViewsApplication.class, args);
 	}
 
 }

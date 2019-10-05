@@ -9,7 +9,7 @@ public class Libber {
 	
 	private Random random = new Random();
 
-	public String makeLib(String review, List<String> nouns, String[] userNouns) {
+	public String makeLib(String review, List<String> nouns, List<String> userNouns) {
 		List<String> reviewWords = new ArrayList<>();
 		String newReview = review;
 		String[] split = review.split(" ");
@@ -20,8 +20,8 @@ public class Libber {
 		for (String word : reviewWords) {
 			for (String noun : nouns ) {
 				if(word.equalsIgnoreCase(noun)) {
-					int randomNum = ThreadLocalRandom.current().nextInt(0, userNouns.length);
-					newReview = newReview.replaceFirst(word, userNouns[randomNum]);
+					int randomNum = ThreadLocalRandom.current().nextInt(0, userNouns.size());
+					newReview = newReview.replaceFirst(word, userNouns.get(randomNum));
 				}
 				
 			}
@@ -29,7 +29,7 @@ public class Libber {
 		return newReview;
 	}
 	
-	public String makeTotalMadLib(String review, List<String> nouns, String[] userNouns) {
+	public String makeTotalMadLib(String review, List<String> nouns, List<String> userNouns) {
 		List<String> reviewWords = new ArrayList<>();
 		String newReview = review;
 		String[] split = review.split(" ");
@@ -48,7 +48,7 @@ public class Libber {
 		return newReview;
 	}
 	
-	public Integer getRandom(String[] userNouns) {
-		return random.nextInt(userNouns.length);
+	public Integer getRandom(List<String> userNouns) {
+		return random.nextInt(userNouns.size());
 	}
 }
