@@ -12,6 +12,7 @@ import com.grandcircus.madviews.details.Review;
 import com.grandcircus.madviews.geocoding.GeocodingCoordinatesResponse;
 import com.grandcircus.madviews.textsearch.GoogleTextSearchResponse;
 import com.grandcircus.madviews.textsearch.Result;
+import com.grandcirucs.madviews.model.Venue;
 
 @Component
 public class ApiService {
@@ -19,9 +20,32 @@ public class ApiService {
 	@Value("${Geocoding.API_KEY}")
 	private String geoKey;
 	private RestTemplate restTemplate = new RestTemplate();
-	private String urlStatic = "https://maps.googleapis.com/maps/api/geocode/json?address=detroit&key=AIzaSyDN26GiZroLsmsHLqKbqzcGwPR4ywOiP08";
-	private String city = "Detroit";
-	private String searchText = "Dennys";
+	private String city;
+	private String name;
+	
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public List<Review> getReviews(Venue venue) {
+		setCity(venue.getCity());
+		setName(venue.getName());
+		DetailResult result = getPlaceDetails(getDetailsUrl(getPlaceId()));
+		List<Review> reviews = result.getReviews();
+		return reviews;
+	}
 	
 	public DetailResult getPlaceDetails(String url) {
 		PlaceDetailsResponse response = restTemplate.getForObject(url, PlaceDetailsResponse.class);
@@ -30,7 +54,6 @@ public class ApiService {
 	}
 
 	public GoogleTextSearchResponse getListOfPlacesWithAddressBiased(String url) {
-
 		GoogleTextSearchResponse response = restTemplate.getForObject(url, GoogleTextSearchResponse.class);
 		return response;
 	}
@@ -43,16 +66,6 @@ public class ApiService {
 	public Double getLongitudeCoordinate(String url) {
 		GeocodingCoordinatesResponse response = restTemplate.getForObject(url, GeocodingCoordinatesResponse.class);
 		return response.getResults()[0].getGeometry().getLocation().getLongitude();
-	}
-	
-	public Double getLat() {
-		return getLatitudeCoordinate(urlStatic);
-}
-
-	public List<Review> getReviews() {
-		DetailResult result = getPlaceDetails(getDetailsUrl(getPlaceId()));
-		List<Review> reviews = result.getReviews();
-		return reviews;
 	}
 	
 	private String getPlaceId() {
@@ -80,7 +93,7 @@ public class ApiService {
 	}
 	
 	private String getListOfPlacesUrl(Double latitude, Double longitude) {
-		String url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=" + searchText + "&location="
+		String url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=" + name + "&location="
 				+ buildLocation(latitude, longitude) + "&radius=" + 5000 + "&key=" + geoKey;
 		return url;
 	}
@@ -95,8 +108,5 @@ public class ApiService {
 		String url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + city + "&key=" + geoKey;
 		return url;
 	}
-	
-
-	
 
 }

@@ -15,16 +15,12 @@
 	<div class="container">
 
 		<h1>MadLib Google Reviews</h1>
-		Before: 
-		<br>
-	 		${oldReview }
-	 		<br>
-	 	After: 
-	 	<br>
-	 		${newReview }
-	 	
-		
-
+		<form action="/newReview?city=${city}?name=${name}?content=${content}">
+		<h3>City</h3><input name="city"/>
+		<h3>Venue</h3><input name="name"/>
+		<h3>Your Words (Separate by commas)</h3><textarea name="content" rows="5 " cols="60"></textarea>
+			<button type="submit" class="btn btn-primary">Go!</button>
+		</form>
 	
 	</div> 
 
